@@ -107,6 +107,18 @@ body {
   background: radial-gradient(circle at 10% 10%, rgba(241, 197, 111, 0.12), transparent 16%), radial-gradient(circle at 90% 90%, rgba(123, 97, 255, 0.12), transparent 22%), linear-gradient(135deg, var(--bg), var(--bg-2));
 }
 
+.blinkAnimation {
+  animation: blink 1s infinite;
+    background: linear-gradient(90deg, var(--accent), var(--accent-4));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes blink {
+  0%{ opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
 .menu-toggle {
   display: none;
   flex-direction: column;

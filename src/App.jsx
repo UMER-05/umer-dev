@@ -337,10 +337,11 @@ function App() {
             <p className="eyebrow">Full Stack Developer</p>
             <div className="hero-badge">
               <Icon kind="spark" />
-              Building luxury-grade software experiences
+              SaaS | CRM | Websites | Web Apps
             </div>
             <h1>
-             Muhammed Umer crafts polished web products with <span className="accent">clarity, speed</span>, and lasting impact.
+              Muhammed Umer <br /> software developer <br />
+              Building <span className='blinkAnimation'>Modern</span><span className="accent "> Software</span> Solutions
             </h1>
             <p className="hero-text">
               I design and build modern software solutions for startups, SaaS products, and growth-focused brands from fast UI experiences to dependable backend systems.
