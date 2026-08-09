@@ -107,7 +107,7 @@ const projects = [
 ]
 
 const highlights = [
-  { label: 'Years building', value: '3+', icon: 'shield' },
+  { label: 'of experience', value: 'Years', icon: 'shield' },
   { label: 'Products shipped', value: '20+', icon: 'star' },
   { label: 'Industries served', value: '8+', icon: 'globe' },
 ]
