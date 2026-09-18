@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import useFundexPic from './assests/useFundexPic.png'
+import souanagouveiaPic from './assests/anaWebsiteExample.png'
 import rapidhypePic from './assests/rapidhypePic.png'
 import digitalizeraPic from './assests/digitalizeraPic.png'
 import youngoriginsPic from './assests/youngoriginsPic.png'
@@ -71,6 +72,14 @@ const projects = [
     link: 'https://rapidhype.pk/',
     tags: ['Marketing', 'Growth', 'Agency'],
     image: rapidhypePic,
+  },
+  {
+    name: 'Ana Gouveia',
+    description:
+      'Ana Gouveia from Brazil wanted a completely new modern personal website. I designed and developed it from scratch using a new stack, focusing on a polished, responsive, and engaging user experience.',
+    link: 'https://souanagouveia.vercel.app/',
+    tags: ['Portfolio', 'Personal', 'Brand'],
+    image: souanagouveiaPic,
   },
   {
     name: 'Digitalizera',
