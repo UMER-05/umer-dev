@@ -1,0 +1,13 @@
+{
+  "name": "Muhammed Umer | Full Stack Developer",
+  "short_name": "Umer",
+  "description": "Portfolio of Muhammed Umer, a full stack developer building SaaS platforms, CRMs and web apps.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#06070d",
+  "theme_color": "#06070d",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,12 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import useFundexPic from './assests/useFundexPic.png'
-import souanagouveiaPic from './assests/anaWebsiteExample.png'
-import rapidhypePic from './assests/rapidhypePic.png'
-import digitalizeraPic from './assests/digitalizeraPic.png'
-import youngoriginsPic from './assests/youngoriginsPic.png'
-import consultantukPic from './assests/consultantukPic.png'
-import consultanteuPic from './assests/consultanteuPic.png'
+import useFundexPic from './assests/useFundexPic.webp'
+import souanagouveiaPic from './assests/anaWebsiteExample.webp'
+import rapidhypePic from './assests/rapidhypePic.webp'
+import archangelPic from './assests/archangelPic.webp'
+import multiTenantCrmPic from './assests/multiTenantCrmPic.webp'
+import archangelPic2 from './assests/archangelPic2.webp'
+import archangelPic3 from './assests/archangelPic3.webp'
+import archangelPic4 from './assests/archangelPic4.webp'
+import multiTenantCrmPic2 from './assests/multiTenantCrmPic2.webp'
+import rkfPic from './assests/rkfPic.webp'
+import digitalizeraPic from './assests/digitalizeraPic.webp'
+import youngoriginsPic from './assests/youngoriginsPic.webp'
+import consultantukPic from './assests/consultantukPic.webp'
+import consultanteuPic from './assests/consultanteuPic.webp'
+
+// 800px copies of each screenshot, so phones and the two-column grid don't download 1400px files
+const largeImages = import.meta.glob('./assests/*.webp', { eager: true, import: 'default' })
+const smallImages = import.meta.glob('./assests/sm/*.webp', { eager: true, import: 'default' })
+const smallByLarge = Object.fromEntries(
+  Object.entries(largeImages).map(([path, url]) => [url, smallImages[path.replace('./assests/', './assests/sm/')]]),
+)
+const PROJECT_IMAGE_SIZES = '(max-width: 920px) calc(100vw - 2rem), 590px'
+
+function responsiveImage(src) {
+  const small = smallByLarge[src]
+  return small ? { srcSet: `${small} 800w, ${src} 1400w`, sizes: PROJECT_IMAGE_SIZES } : {}
+}
 
 const expertise = [
   {
@@ -17,7 +37,7 @@ const expertise = [
   {
     title: 'Backend',
     icon: 'server',
-    items: ['Node.js', 'Express.js', 'REST APIs', 'JWT Auth', 'RBAC', 'API design'],
+    items: ['Node.js', 'Express.js', 'REST APIs', 'JWT Auth', 'RBAC', 'Solana / Web3'],
   },
   {
     title: 'Database',
@@ -56,9 +76,11 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ]
 
+// category: 'app' = SaaS platforms, dashboards and web apps; 'website' = marketing and brand sites
 const projects = [
   {
     name: 'UseFundex',
+    category: 'app',
     description:
       'A SaaS CRM fintech platform engineered for intuitive financial management, investment tracking, and smarter decision making.',
     link: 'https://www.usefundex.com/',
@@ -66,7 +88,34 @@ const projects = [
     image: useFundexPic,
   },
   {
+    name: 'Multi-Tenant CRM',
+    category: 'app',
+    description:
+      'A multi-tenant SaaS CRM with isolated workspaces, role-based access, and Kanban lead pipelines for managing contacts, deals, tasks, and campaigns.',
+    tags: ['SaaS', 'CRM', 'Multi-Tenant'],
+    image: multiTenantCrmPic,
+    gallery: [multiTenantCrmPic, multiTenantCrmPic2],
+  },
+  {
+    name: 'ArchAngel Trading Bot',
+    category: 'app',
+    description:
+      'An automated Solana trading bot with a live dashboard for new token discovery, real-time trades, risk management, and portfolio P&L tracking.',
+    tags: ['Web3', 'Trading Bot', 'Solana'],
+    image: archangelPic,
+    gallery: [archangelPic, archangelPic2, archangelPic3, archangelPic4],
+  },
+  {
+    name: 'Rohail Kamal Fragrance',
+    category: 'app',
+    description:
+      'A full e-commerce store for a fragrance brand, with a custom admin dashboard to manage products, categories, stock, offers, and customer orders.',
+    tags: ['E-commerce', 'Admin Dashboard', 'Fragrance'],
+    image: rkfPic,
+  },
+  {
     name: 'RapidHype',
+    category: 'website',
     description:
       'A modern digital marketing platform tailored for growth-focused businesses with performance-driven campaigns and brand systems.',
     link: 'https://rapidhype.pk/',
@@ -75,6 +124,7 @@ const projects = [
   },
   {
     name: 'Ana Gouveia',
+    category: 'website',
     description:
       'Ana Gouveia from Brazil wanted a completely new modern personal website. I designed and developed it from scratch using a new stack, focusing on a polished, responsive, and engaging user experience.',
     link: 'https://souanagouveia.vercel.app/',
@@ -83,6 +133,7 @@ const projects = [
   },
   {
     name: 'Digitalizera',
+    category: 'website',
     description:
       'A bold web development agency experience built to showcase scalable product design, development, and business transformation services.',
     link: 'https://digitalizera.vercel.app/',
@@ -91,6 +142,7 @@ const projects = [
   },
   {
     name: 'Young Origins',
+    category: 'website',
     description:
       'A contemporary creative studio website built to communicate culture-led campaigns, storytelling, and brand value with clarity.',
     link: 'https://youngorigins.vercel.app/',
@@ -99,6 +151,7 @@ const projects = [
   },
   {
     name: 'Executive Advisory',
+    category: 'website',
     description:
       'A premium consulting website designed for executive strategy, polished storytelling, and strong first impressions for high-value clients.',
     link: 'https://consultant-demo-eu.vercel.app/',
@@ -107,6 +160,7 @@ const projects = [
   },
   {
     name: 'Consultant UK',
+    category: 'website',
     description:
       'A refined business consultancy site focused on trust, expertise, and clarity for companies seeking strategic growth support.',
     link: 'https://consultant-uk.vercel.app/',
@@ -115,8 +169,15 @@ const projects = [
   },
 ]
 
+const projectFilters = [
+  { id: 'all', label: 'All work' },
+  { id: 'app', label: 'SaaS & web apps' },
+  { id: 'website', label: 'Websites' },
+]
+
+const INITIAL_PROJECT_COUNT = 6
+
 const highlights = [
-  { label: 'of experience', value: 'Years', icon: 'shield' },
   { label: 'Products shipped', value: '20+', icon: 'star' },
   { label: 'Industries served', value: '8+', icon: 'globe' },
 ]
@@ -127,7 +188,50 @@ const socialLinks = [
   { label: 'WhatsApp', href: 'https://wa.me/923021601044', icon: 'whatsapp' },
 ]
 
-const heroBullets = ['Full-stack product builds', 'Modern SaaS experiences', 'Conversion-driven websites', 'Scalable web apps']
+const heroFacts = [
+  { label: 'Based in', value: 'Pakistan' },
+  { label: 'Time zone', value: 'PKT (UTC+5)' },
+  { label: 'Focus', value: 'SaaS, CRMs & web apps' },
+  { label: 'Core stack', value: 'React, Next.js, Node.js' },
+]
+
+const processSteps = [
+  {
+    title: 'Discovery',
+    text: 'We talk through your goals, users, and scope, and agree on a clear plan and timeline.',
+  },
+  {
+    title: 'Design',
+    text: 'I map the user journeys and design the interface before any code is written.',
+  },
+  {
+    title: 'Build',
+    text: 'Frontend, backend, and database come together, with regular demos so you see progress.',
+  },
+  {
+    title: 'Launch & support',
+    text: 'I deploy, test on real devices, and stay on hand for fixes and next steps.',
+  },
+]
+
+// Real client reviews. Only add reviews clients actually wrote.
+const testimonials = [
+  {
+    name: 'Jordan Pearcey',
+    country: 'United Kingdom',
+    rating: 5,
+    quote:
+      'Muhammad did an amazing job working on my website. He was very professional throughout, listened to what I needed, and completed the job very quickly. I will definitely use him again and would recommend him to anyone who needs their web. Thanks a lot, I appreciate the effort you have put into it.',
+  },
+  {
+    name: 'Spiros Fourkiotis',
+    country: 'Greece',
+    rating: 5,
+    quote: 'Great work. A highly premium design, and very professional.',
+  },
+]
+
+const CONTACT_EMAIL = 'uk4354314@gmail.com'
 
 function Icon({ kind }) {
   const common = {
@@ -228,14 +332,6 @@ function Icon({ kind }) {
           <path d="m12 3 2.4 5.7 6.1.6-4.6 4.1 1.4 6-5.3-3.3-5.3 3.3 1.4-6L3.5 9.3l6.1-.6L12 3Z" />
         </svg>
       )
-    case 'crown':
-      return (
-        <svg {...common}>
-          <path d="m4 16 2-7 5 3 5-3 2 7" />
-          <path d="M4 16h16" />
-          <path d="M8 19h8" />
-        </svg>
-      )
     case 'mail':
       return (
         <svg {...common}>
@@ -283,84 +379,205 @@ function Icon({ kind }) {
   }
 }
 
+const SLIDE_INTERVAL_MS = 3500
+
+function ProjectSlider({ images, name }) {
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [nearView, setNearView] = useState(false)
+  const sliderRef = useRef(null)
+
+  // Defer loading the extra slides until the slider is close to the viewport,
+  // so they don't compete with the hero photo on first load.
+  useEffect(() => {
+    const node = sliderRef.current
+    if (!node) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNearView(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '300px 0px' },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (paused || reduceMotion || !nearView) return undefined
+    const timer = window.setInterval(() => {
+      setIndex((current) => (current + 1) % images.length)
+    }, SLIDE_INTERVAL_MS)
+    return () => window.clearInterval(timer)
+  }, [paused, nearView, images.length])
+
+  return (
+    <div
+      ref={sliderRef}
+      className="project-slider"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="project-slider-track" style={{ transform: `translateX(-${index * 100}%)` }}>
+        {(nearView ? images : images.slice(0, 1)).map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            {...responsiveImage(src)}
+            alt={`${name} screenshot ${i + 1} of ${images.length}`}
+            loading={i === 0 ? 'lazy' : 'eager'}
+            decoding="async"
+            aria-hidden={i !== index}
+          />
+        ))}
+      </div>
+      <div className="project-slider-dots">
+        {images.map((src, i) => (
+          <button
+            key={src}
+            type="button"
+            className={i === index ? 'active' : ''}
+            aria-label={`Show ${name} screenshot ${i + 1}`}
+            onClick={() => setIndex(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [activeSection, setActiveSection] = useState('')
+  const [projectFilter, setProjectFilter] = useState('all')
+  const [showAllProjects, setShowAllProjects] = useState(false)
 
-  useState(() => {
-    const timer = window.setTimeout(() => setLoading(false), 1000)
-    return () => window.clearTimeout(timer)
-  })
+  // Close the mobile menu on Escape, and lock page scroll while it is open.
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false)
+    }
+    const desktop = window.matchMedia('(min-width: 761px)')
+    const onResize = () => {
+      if (desktop.matches) setMobileMenuOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    desktop.addEventListener('change', onResize)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      desktop.removeEventListener('change', onResize)
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
 
-  if (loading) {
-    return (
-      <div className="page-loader">
-        <div className="loader-container">
-          <div className="ring" />
-          <div className="ring" />
-          <div className="ring" />
-          <div className="ring" />
-          <div className="loader-label">loading</div>
-        </div>
-      </div>
+  // Highlight the nav link for the section currently in view.
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.querySelector(item.href))
+      .filter(Boolean)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(`#${entry.target.id}`)
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
     )
-  }
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
+  const filteredProjects =
+    projectFilter === 'all' ? projects : projects.filter((project) => project.category === projectFilter)
+  const canCollapse = filteredProjects.length > INITIAL_PROJECT_COUNT
+  const visibleProjects =
+    canCollapse && !showAllProjects ? filteredProjects.slice(0, INITIAL_PROJECT_COUNT) : filteredProjects
+  const currentYear = new Date().getFullYear()
 
   return (
     <div className="portfolio-shell">
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
 
-      <header className="topbar">
+      {mobileMenuOpen && <div className="nav-backdrop" onClick={() => setMobileMenuOpen(false)} />}
+
+      <header className={`topbar ${mobileMenuOpen ? 'menu-open' : ''}`}>
         <a className="brand header-brand" href="#home">
-          <span className="brand-mark">
-            <Icon kind="crown" />
+          <span className="brand-mark" aria-hidden="true">
+            MU
           </span>
           <span className="brand-copy">
-            <strong>Umar</strong>
+            <strong>Umer</strong>
             <small>Full Stack Developer</small>
           </span>
         </a>
         <button
+          type="button"
           className="menu-toggle"
-          aria-label="Toggle navigation"
+          aria-label={mobileMenuOpen ? 'Close navigation' : 'Open navigation'}
           aria-expanded={mobileMenuOpen}
+          aria-controls="primary-navigation"
           onClick={() => setMobileMenuOpen((prev) => !prev)}
         >
           <span />
           <span />
           <span />
         </button>
-        <nav className={`nav-links ${mobileMenuOpen ? 'open' : ''}`} aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-              {item.label}
+        <nav
+          id="primary-navigation"
+          className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}
+          aria-label="Primary navigation"
+        >
+          {navItems.map((item, i) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className={activeSection === item.href ? 'active' : ''}
+              aria-current={activeSection === item.href ? 'true' : undefined}
+              style={{ '--i': i }}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span className="nav-index">0{i + 1}</span>
+              <span className="nav-label">{item.label}</span>
+              <span className="nav-arrow">
+                <Icon kind="arrow" />
+              </span>
             </a>
           ))}
+          <a
+            className="nav-cta"
+            href={`mailto:${CONTACT_EMAIL}`}
+            style={{ '--i': navItems.length }}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <Icon kind="mail" />
+            <span>Let&apos;s talk</span>
+          </a>
         </nav>
       </header>
 
       <main id="home">
         <section className="hero">
           <div className="hero-copy">
-            <p className="eyebrow">Full Stack Developer</p>
-            <div className="hero-badge">
-              <Icon kind="spark" />
-              SaaS | CRM | Websites | Web Apps
-            </div>
+            <p className="eyebrow">Muhammed Umer · Full Stack Developer</p>
             <h1>
-              Muhammed Umer <br /> software developer <br />
-              Building <span className='blinkAnimation'>Modern</span><span className="accent "> Software</span> Solutions
+              I build <span className="accent">SaaS platforms, CRMs</span> and web apps that ship.
             </h1>
             <p className="hero-text">
-              I design and build modern software solutions for startups, SaaS products, and growth-focused brands from fast UI experiences to dependable backend systems.
+              I design and build modern software for startups, SaaS products, and growth-focused brands, from fast UI
+              experiences to dependable backend systems.
             </p>
             <div className="hero-actions">
               <a className="btn btn-primary" href="#work">
                 <Icon kind="grid" />
                 <span>Explore projects</span>
               </a>
-              <a className="btn btn-secondary" href="mailto:uk4354314@gmail.com">
+              <a className="btn btn-secondary" href={`mailto:${CONTACT_EMAIL}`}>
                 <Icon kind="mail" />
                 <span>Start a conversation</span>
               </a>
@@ -379,13 +596,31 @@ function App() {
             <div className="panel-card">
               <div className="panel-orbits" />
               <div className="panel-orbits second" />
+              <figure className="panel-photo">
+                <img
+                  src="/umer-dev.webp"
+                  srcSet="/umer-dev-400.webp 400w, /umer-dev.webp 680w"
+                  sizes="(max-width: 920px) min(calc(100vw - 2rem), 560px), 430px"
+                  alt="Muhammed Umer, full stack developer"
+                  width="680"
+                  height="590"
+                  fetchPriority="high"
+                />
+                <figcaption>
+                  <strong>Muhammed Umer</strong>
+                  <span>Freelance software developer</span>
+                </figcaption>
+              </figure>
               <div className="panel-content">
-                <p className="panel-label">Crafted for</p>
-                <ul>
-                  {heroBullets.map((item) => (
-                    <li key={item}>{item}</li>
+                <p className="panel-label">Quick facts</p>
+                <dl className="panel-facts">
+                  {heroFacts.map((fact) => (
+                    <div key={fact.label}>
+                      <dt>{fact.label}</dt>
+                      <dd>{fact.value}</dd>
+                    </div>
                   ))}
-                </ul>
+                </dl>
               </div>
             </div>
           </div>
@@ -408,7 +643,7 @@ function App() {
         <section id="about" className="content-section">
           <div className="section-heading">
             <p className="eyebrow">About</p>
-            <h2>Thoughtful digital products shaped with clarity, pace, and confidence.</h2>
+            <h2>One developer, from first idea to launched product.</h2>
           </div>
           <div className="about-grid">
             <div className="text-card">
@@ -416,10 +651,13 @@ function App() {
                 <Icon kind="globe" />
               </div>
               <p>
-                My work blends product thinking, modern frontend architecture, and dependable backend delivery. I build interfaces that look premium, perform beautifully, and support real business goals.
+                I&apos;m Muhammed Umer, a freelance full-stack developer based in Pakistan. I work with
+                startups and businesses around the world, from a fundraising platform and a multi-tenant CRM to brand
+                websites for clients in Brazil and Kenya.
               </p>
               <p>
-                From complex SaaS dashboards to elegant marketing destinations, I focus on speed, maintainability, and design systems that scale with your brand.
+                I handle the whole build: product thinking and interface design, React and Next.js frontends, Node.js
+                APIs, databases, and deployment. You get one point of contact from the first call to launch day.
               </p>
             </div>
             <div className="feature-stack">
@@ -460,22 +698,75 @@ function App() {
           </div>
         </section>
 
+        <section className="process-band" aria-labelledby="process-title">
+          <div className="section-heading">
+            <p className="eyebrow">How I work</p>
+            <h2 id="process-title">A simple process, with no surprises.</h2>
+          </div>
+          <ol className="process-steps">
+            {processSteps.map((step, i) => (
+              <li key={step.title}>
+                <span className="process-number">0{i + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         <section id="work" className="content-section">
           <div className="section-heading">
-            <p className="eyebrow">Selected work</p>
-            <h2>Recent digital products and brand-led experiences.</h2>
+            <p className="eyebrow">Projects &amp; Experience</p>
+            <h2>Real products I&apos;ve designed, built, and shipped for clients.</h2>
+            <p className="section-subtitle">
+              From SaaS platforms, CRMs, and a Solana trading bot to marketing and business websites, each project
+              below was delivered end to end, from UI design to deployment.
+            </p>
+          </div>
+          <div className="project-filters" role="group" aria-label="Filter projects">
+            {projectFilters.map((filter) => (
+              <button
+                key={filter.id}
+                type="button"
+                className={projectFilter === filter.id ? 'active' : ''}
+                aria-pressed={projectFilter === filter.id}
+                onClick={() => {
+                  setProjectFilter(filter.id)
+                  setShowAllProjects(false)
+                }}
+              >
+                {filter.label}
+              </button>
+            ))}
           </div>
           <div className="project-grid">
-            {projects.map((project) => (
+            {visibleProjects.map((project) => (
               <article className="project-card" key={project.name}>
-                <img src={project.image} alt={project.name} loading="lazy" />
+                {project.gallery ? (
+                  <ProjectSlider images={project.gallery} name={project.name} />
+                ) : (
+                  <img
+                    src={project.image}
+                    {...responsiveImage(project.image)}
+                    alt={`${project.name} website screenshot`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
                 <div className="project-content">
                   <div className="project-top">
-                    <p className="project-name">{project.name}</p>
-                    <a href={project.link} target="_blank" rel="noreferrer">
-                      <Icon kind="arrow" />
-                      Visit
-                    </a>
+                    <h3 className="project-name">{project.name}</h3>
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Visit the ${project.name} website (opens in a new tab)`}
+                      >
+                        <Icon kind="arrow" />
+                        Visit
+                      </a>
+                    )}
                   </div>
                   <p>{project.description}</p>
                   <div className="project-tags">
@@ -487,27 +778,80 @@ function App() {
               </article>
             ))}
           </div>
+          {canCollapse && (
+            <div className="project-more">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                aria-expanded={showAllProjects}
+                onClick={() => setShowAllProjects((prev) => !prev)}
+              >
+                {showAllProjects ? 'Show fewer projects' : `Show all ${filteredProjects.length} projects`}
+              </button>
+            </div>
+          )}
+        </section>
+
+        <section id="reviews" className="content-section">
+          <div className="section-heading">
+            <p className="eyebrow">Client reviews</p>
+            <h2>What clients say after we ship.</h2>
+          </div>
+          <div className="testimonial-grid">
+            {testimonials.map((review) => (
+              <figure className="testimonial-card" key={review.name}>
+                <div className="testimonial-stars" role="img" aria-label={`${review.rating} out of 5 stars`}>
+                  {Array.from({ length: review.rating }, (_, i) => (
+                    <Icon kind="star" key={i} />
+                  ))}
+                </div>
+                <blockquote>
+                  <p>&ldquo;{review.quote}&rdquo;</p>
+                </blockquote>
+                <figcaption>
+                  <span className="testimonial-avatar" aria-hidden="true">
+                    {review.name
+                      .split(' ')
+                      .map((part) => part[0])
+                      .join('')}
+                  </span>
+                  <span>
+                    <strong>{review.name}</strong>
+                    <small>{review.country}</small>
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section id="contact" className="content-section">
           <div className="contact-card">
-            <div>
+            <div className="contact-copy">
               <p className="eyebrow">Contact</p>
               <h2>Ready to build something modern and memorable?</h2>
               <p>
-                Whether you need a new product, a high-converting website, or a strong digital presence, I am ready to help shape it.
+                Whether you need a new product, a high-converting website, or a strong digital presence, I am ready to
+                help shape it. Tell me what you&apos;re building and I&apos;ll reply with next steps.
               </p>
+              <a
+                className="btn btn-primary"
+                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('New project enquiry')}`}
+              >
+                <Icon kind="mail" />
+                <span>Start a project</span>
+              </a>
             </div>
             <div className="contact-links">
-              <a href="mailto:uk4354314@gmail.com">
+              <a href={`mailto:${CONTACT_EMAIL}`}>
                 <span className="contact-icon" aria-hidden="true">
                   <Icon kind="mail" />
                 </span>
-                uk4354314@gmail.com
+                {CONTACT_EMAIL}
               </a>
-              <a href="https://wa.me/923021601044">
+              <a href="https://wa.me/923021601044" target="_blank" rel="noreferrer">
                 <span className="contact-icon" aria-hidden="true">
-                  <Icon kind="phone" />
+                  <Icon kind="whatsapp" />
                 </span>
                 +92 302 1601044
               </a>
@@ -522,7 +866,39 @@ function App() {
         </section>
       </main>
 
-      <footer className="footer">© 2026 Umar. Building Modern Software Solutions.</footer>
+      <footer className="footer">
+        <div className="footer-inner">
+          <a className="brand" href="#home">
+            <span className="brand-mark" aria-hidden="true">
+              MU
+            </span>
+            <span className="brand-copy">
+              <strong>Muhammed Umer</strong>
+              <small>Building modern software solutions</small>
+            </span>
+          </a>
+          <nav className="footer-nav" aria-label="Footer navigation">
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div className="footer-social">
+            {socialLinks.map((link) => (
+              <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
+                <Icon kind={link.icon} />
+              </a>
+            ))}
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© {currentYear} Muhammed Umer. All rights reserved.</span>
+          <a href="#home" className="back-to-top">
+            Back to top ↑
+          </a>
+        </div>
+      </footer>
     </div>
   )
 }

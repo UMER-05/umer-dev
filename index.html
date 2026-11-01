@@ -9,24 +9,26 @@
 <meta name="google-site-verification" content="VSkjpdIByXre2BXTe1ppAue0Vv4WHgZVi8mx2M9FbnE" />
   <meta
     name="description"
-    content="Muhammed Umer is a Software Developer from Rahim Yar Khan, Pakistan, specializing in SaaS platforms, CRM dashboards, AI-powered applications, and modern web development."
+    content="Muhammed Umer is a Software Developer from Pakistan, specializing in SaaS platforms, CRM dashboards, web apps, and modern web development."
   />
 
   <meta
     name="keywords"
-    content="Muhammed Umer, Umer Khan, React Developer, Software Developer, Next.js Developer, SaaS Developer, CRM Developer, Frontend Developer, Full Stack Developer, JavaScript, TypeScript, Tailwind CSS, Web Developer Pakistan, Rahim Yar Khan"
+    content="Muhammed Umer, Umer Khan, React Developer, Software Developer, Next.js Developer, SaaS Developer, CRM Developer, Frontend Developer, Full Stack Developer, JavaScript, TypeScript, Tailwind CSS, Web Developer Pakistan"
   />
 
   <meta name="author" content="Muhammed Umer" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
-  <meta name="theme-color" content="#050816" />
+  <meta name="theme-color" content="#06070d" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://iamumer.vercel.app/" />
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -35,12 +37,17 @@
   <meta property="og:title" content="Muhammed Umer | Software Developer" />
   <meta
     property="og:description"
-    content="Building modern SaaS platforms, CRM dashboards, AI-powered applications, and high-performance web experiences."
+    content="Building modern SaaS platforms, CRM dashboards, web apps, and high-performance web experiences."
   />
   <meta
     property="og:image"
-    content="https://iamumer.vercel.app/og-image.png"
+    content="https://iamumer.vercel.app/og-image.jpg"
   />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Muhammed Umer, Software Developer. Building modern software solutions." />
+  <meta property="og:locale" content="en_US" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -50,20 +57,39 @@
   />
   <meta
     name="twitter:description"
-    content="React, Next.js, SaaS, CRM and AI Application Developer."
+    content="React, Next.js, SaaS, CRM and web app developer."
   />
   <meta
     name="twitter:image"
-    content="https://iamumer.vercel.app/og-image.png"
+    content="https://iamumer.vercel.app/og-image.jpg"
+  />
+  <meta name="twitter:image:alt" content="Muhammed Umer, Software Developer. Building modern software solutions." />
+
+  <!-- Hero photo: start downloading before the app script runs -->
+  <link
+    rel="preload"
+    as="image"
+    href="/umer-dev.webp"
+    imagesrcset="/umer-dev-400.webp 400w, /umer-dev.webp 680w"
+    imagesizes="(max-width: 920px) min(calc(100vw - 2rem), 560px), 430px"
+    fetchpriority="high"
   />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&display=swap"
-    rel="stylesheet"
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'"
   />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    />
+  </noscript>
 
   <!-- Schema.org -->
   <script type="application/ld+json">
@@ -76,18 +102,16 @@
     "alternateName": "Umer Khan",
 
     "url": "https://iamumer.vercel.app/",
-    "image": "https://iamumer.vercel.app/profile.webp",
+    "image": "https://iamumer.vercel.app/umer-profile.webp",
 
     "jobTitle": "Software Developer",
 
-    "description": "Software Developer specializing in SaaS platforms, CRM dashboards, AI-powered applications, and modern web development.",
+    "description": "Software Developer specializing in SaaS platforms, CRM dashboards, web apps, and modern web development.",
 
     "nationality": "Pakistani",
 
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Rahim Yar Khan",
-      "addressRegion": "Punjab",
       "addressCountry": "Pakistan"
     },
 
@@ -138,6 +162,12 @@
 </head>
 
 <body>
+  <noscript>
+    <p style="padding: 2rem; font-family: system-ui, sans-serif; color: #f6f1e8; background: #06070d">
+      Please enable JavaScript to view this portfolio. You can also reach Muhammed Umer at
+      <a href="mailto:uk4354314@gmail.com" style="color: #f1c56f">uk4354314@gmail.com</a>.
+    </p>
+  </noscript>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

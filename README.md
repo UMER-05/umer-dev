@@ -1,16 +1,36 @@
-# React + Vite
+# Muhammed Umer — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of Muhammed Umer, a full stack developer building SaaS platforms, CRMs and web apps.
 
-Currently, two official plugins are available:
+Live site: https://iamumer.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech
 
-## React Compiler
+- React 19 and Vite
+- Plain CSS (no UI framework), in `src/App.css` and `src/index.css`
+- Hosted on Vercel; caching and security headers live in `vercel.json`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Run locally
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev       # start the dev server
+npm run build     # production build into dist/
+npm run preview   # serve the production build locally
+npm run lint      # check code with ESLint
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Editing content
+
+All page content lives near the top of `src/App.jsx`:
+
+- `projects`: project cards. Set `category` to `'app'` or `'website'` for the filters. Add `gallery` for an auto-sliding image set, and leave out `link` to hide the Visit button.
+- `testimonials`: client reviews. Only add reviews clients actually wrote.
+- `highlights`, `heroFacts`, `processSteps`, `expertise`: stats, quick facts, process steps and skills.
+
+Images go in `src/assests/` as WebP, about 1400px wide.
+
+## Before each deploy
+
+1. Update `<lastmod>` in `public/sitemap.xml` to the deploy date.
+2. Run `npm run lint` and `npm run build`.
